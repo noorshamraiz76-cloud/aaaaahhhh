@@ -1,0 +1,169 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cute Bunny Plane Delivery</title>
+  <style>
+    :root{
+      --bg:#fbeef7;
+      --accent:#ff7ab6;
+      --card:#fff;
+      --shadow: rgba(0,0,0,0.12);
+      --slow: 18s; /* slower timing for better viewing */
+    }
+    html,body{height:100%;margin:0;font-family: system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;scroll-behavior:smooth}
+    body{background:linear-gradient(180deg,var(--bg),#fff);}.stage{
+  width:960px;max-width:94vw;height:560px;background:linear-gradient(180deg,#fff 0%, rgba(255,255,255,0.6) 100%);border-radius:18px;box-shadow:0 10px 30px var(--shadow);position:relative;overflow:hidden;padding:24px;margin:0 auto;
+}
+
+.clouds{position:absolute;inset:0;pointer-events:none}
+.cloud{position:absolute;opacity:0.85}
+
+.plane-wrap{position:absolute;top:22%;left:-20%;width:220px;height:140px;display:flex;align-items:center;justify-content:center;transform-origin:center center;}
+.plane{width:220px;height:140px;}
+
+@keyframes fly-across{
+  0%{transform: translateX(-140%) translateY(0) rotate(-6deg)}
+  50%{transform: translateX(50%) translateY(-6%) rotate(-2deg)}
+  100%{transform: translateX(260%) translateY(10%) rotate(6deg)}
+}
+.plane-wrap.fly{animation: fly-across var(--slow) linear forwards}
+
+.banner{position:absolute;right:12%;top:60%;transform:translateY(-50%);background:linear-gradient(90deg,var(--accent),#ff5a9e);color:white;padding:6px 12px;border-radius:8px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+
+.gift{position:absolute;top:10%;left:50%;transform:translate(-50%, -40%);width:140px;height:120px;background:var(--card);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.12);display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;user-select:none}
+.gift.hidden{opacity:0;pointer-events:none}
+.gift-label{font-weight:700;color:#333;margin-top:6px}
+
+.drop{animation: drop 1.2s ease forwards}
+@keyframes drop{
+  0%{transform: translate(-50%,-40%) translateY(-220px) rotate(-6deg);opacity:0}
+  60%{opacity:1}
+  100%{transform: translate(-50%,-40%) translateY(0) rotate(0)}
+}
+
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:auto}
+
+.card3d{width:80%;max-width:820px;height:360px;background:linear-gradient(180deg,#ffffff,#fff7fb);border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:space-around;perspective:1200px;padding:20px}
+
+.text3d{font-weight:900;font-size:36px;letter-spacing:1px;padding:12px 18px;transform-style:preserve-3d;transform: rotateX(14deg) rotateY(-12deg) translateZ(0);}
+.text3d-rosa{background:linear-gradient(90deg,#ff7ab6,#ff4f9a);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
+
+.bunny{width:120px;height:120px}
+
+.bottom-note{position:absolute;left:16px;bottom:12px;color:#666;font-size:13px}
+
+.gift:active{transform: scale(.98)}
+
+.scroll-section{height:100vh;display:flex;align-items:center;justify-content:center;background:#ffeef7;font-size:40px;font-weight:800;color:#ff5aa6}
+.heart{font-size:50px;margin-left:12px;animation:beat 1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+@media (max-width:520px){
+  .stage{height:74vh;padding:16px}
+  .text3d{font-size:22px}
+  .plane{width:160px;height:100px}
+}
+
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="clouds">
+      <svg class="cloud" style="width:90px;left:8%;top:10%;" viewBox="0 0 64 32"><ellipse cx="20" cy="18" rx="18" ry="10" fill="#fff" opacity="0.9"/></svg>
+      <svg class="cloud" style="width:140px;right:6%;top:40%;" viewBox="0 0 64 32"><ellipse cx="28" cy="16" rx="28" ry="12" fill="#fff" opacity="0.9"/></svg>
+    </div><!-- Bunny in plane -->
+<div class="plane-wrap" id="planeWrap">
+  <svg class="plane" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
+    <!-- plane body -->
+    <rect x="12" y="46" rx="18" ry="18" width="150" height="40" fill="#ff6aa6"/>
+    <!-- wing -->
+    <path d="M40 80 L90 60 L90 86 Z" fill="#ff9ccf"/>
+    <!-- tail -->
+    <path d="M158 46 L190 34 L182 54 Z" fill="#ff9ccf"/>
+    <!-- bunny sitting inside -->
+    <circle cx="70" cy="60" r="18" fill="#fff" stroke="#ff7ab6" stroke-width="2"/>
+    <ellipse cx="62" cy="42" rx="6" ry="12" fill="#fff" stroke="#ff7ab6" stroke-width="2"/>
+    <ellipse cx="78" cy="42" rx="6" ry="12" fill="#fff" stroke="#ff7ab6" stroke-width="2"/>
+    <circle cx="66" cy="58" r="2" fill="#000"/>
+    <circle cx="74" cy="58" r="2" fill="#000"/>
+    <path d="M66 66 Q70 70 74 66" stroke="#000" fill="transparent" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<div class="banner" id="banner">STOP GHOSTING ME</div>
+
+<div class="gift hidden" id="gift">
+  <svg width="64" height="64" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2" fill="#fff" stroke="#ff7ab6" stroke-width="1.4"/></svg>
+  <div class="gift-label">OPEN ME</div>
+</div>
+
+<div class="bottom-note">Tip: click the box to open it.</div>
+
+<div class="overlay" id="overlay">
+  <div class="card3d">
+    <div class="text3d">
+      <div class="text3d-rosa">OR ELSE I'LL BEAT YOU</div>
+    </div>
+    <!-- cute bunny next to text -->
+    <svg class="bunny" viewBox="0 0 100 100">
+      <circle cx="50" cy="60" r="20" fill="#fff" stroke="#ff7ab6" stroke-width="3"/>
+      <ellipse cx="38" cy="34" rx="8" ry="18" fill="#fff" stroke="#ff7ab6" stroke-width="3"/>
+      <ellipse cx="62" cy="34" rx="8" ry="18" fill="#fff" stroke="#ff7ab6" stroke-width="3"/>
+      <circle cx="44" cy="58" r="3" fill="#000"/>
+      <circle cx="56" cy="58" r="3" fill="#000"/>
+      <path d="M44 66 Q50 72 56 66" stroke="#000" stroke-width="2" fill="transparent"/>
+    </svg>
+  </div>
+</div>
+
+  </div>  <div class="scroll-section">Luv ya <span class="heart">❤</span></div>  <script>
+    const planeWrap = document.getElementById('planeWrap');
+    const banner = document.getElementById('banner');
+    const gift = document.getElementById('gift');
+    const overlay = document.getElementById('overlay');
+
+    setTimeout(()=>{
+      planeWrap.classList.add('fly');
+      animateBannerFollow();
+      const ms = 18000;
+      setTimeout(dropGift, Math.floor(ms * 0.58));
+    }, 600);
+
+    function animateBannerFollow(){
+      const interval = setInterval(()=>{
+        const pr = planeWrap.getBoundingClientRect();
+        const stage = planeWrap.parentElement.getBoundingClientRect();
+        banner.style.left = Math.min(stage.width - 140, Math.max(8, pr.left - stage.left + pr.width*0.6)) + 'px';
+        banner.style.top = Math.min(stage.height - 44, Math.max(8, pr.top - stage.top + pr.height*0.62)) + 'px';
+      }, 40);
+      planeWrap.addEventListener('animationend', ()=>{clearInterval(interval);banner.style.opacity=0;});
+    }
+
+    function dropGift(){
+      const stageRect = planeWrap.parentElement.getBoundingClientRect();
+      const planeRect = planeWrap.getBoundingClientRect();
+      const centerX = planeRect.left - stageRect.left + planeRect.width*0.52;
+      gift.style.left = centerX + 'px';
+      gift.classList.remove('hidden');
+      gift.classList.add('drop');
+      gift.addEventListener('click', openGift);
+    }
+
+    function openGift(){
+      overlay.classList.add('show');
+      const text = document.querySelector('.text3d');
+      text.animate([
+        {transform: 'rotateX(40deg) rotateY(-30deg) translateZ(-120px) scale(.9)', opacity:0},
+        {transform: 'rotateX(14deg) rotateY(-12deg) translateZ(0) scale(1)', opacity:1}
+      ],{duration:900,easing:'cubic-bezier(.2,.9,.3,1)'});
+      overlay.addEventListener('click', closeOverlay);
+      document.addEventListener('keydown', escClose);
+    }
+    function closeOverlay(e){if(e.target===overlay){overlay.classList.remove('show');}}
+    function escClose(e){if(e.key==='Escape'){overlay.classList.remove('show');document.removeEventListener('keydown', escClose);}}
+  </script></body>
+</html>
